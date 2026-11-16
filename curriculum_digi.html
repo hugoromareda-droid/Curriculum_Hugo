@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Interactivo - Especialista en Programación</title>
+    <style>
+        :root {
+            --bg-dark: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --success: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .dashboard {
+            max-width: 900px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+
+        /* Cabecera */
+        header {
+            padding: 2rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .profile-info h1 { font-size: 1.8rem; color: var(--accent); }
+        .profile-info p { color: var(--text-muted); font-size: 1rem; }
+
+        .btn-pdf {
+            background: var(--accent);
+            color: #0f172a;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-pdf:hover { background: var(--accent-hover); color: white; }
+
+        /* Navegación por pestañas */
+        nav {
+            display: flex;
+            background: #0f172a;
+            border-bottom: 1px solid #334155;
+            overflow-x: auto;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: 0.3s;
+        }
+
+        nav button.active {
+            color: var(--accent);
+            border-bottom: 3px solid var(--accent);
+            background: rgba(56, 189, 248, 0.05);
+        }
+
+        /* Secciones */
+        .content { padding: 2rem; }
+        .tab-panel { display: none; animation: fadeIn 0.4s; }
+        .tab-panel.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tarjetas de métricas */
+        .grid-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #0f172a;
+            padding: 1.2rem;
+            border-radius: 10px;
+            border: 1px solid #334155;
+        }
+        .stat-card h3 { font-size: 1.8rem; color: var(--success); }
+        .stat-card p { font-size: 0.85rem; color: var(--text-muted); }
+
+        /* Simulador Antes / Después */
+        .demo-box {
+            background: #0f172a;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px dashed var(--accent);
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .manual { background: #ef444433; color: #f87171; }
+        .digital { background: #10b98133; color: #34d399; }
+
+        .btn-toggle {
+            background: #334155;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        .btn-toggle:hover { background: var(--accent); color: #0f172a; }
+
+        /* Etiquetas de herramientas */
+        .skills-container { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1rem; }
+        .skill-tag {
+            background: #0f172a;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Experiencia */
+        .exp-item { margin-bottom: 1.5rem; padding-left: 1rem; border-left: 2px solid var(--accent); }
+        .exp-item h4 { font-size: 1.1rem; }
+        .exp-item span { font-size: 0.85rem; color: var(--accent); }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <!-- Cabecera -->
+    <header>
+        <div class="profile-info">
+            <h1>Hugo Losilla Diez</h1>
+            <p>Especialista en Programación y Bases de datos</p>
+        </div>
+        
+        <a href="c:\Users\Admin\Downloads\CV_trabajoDIGI.pdf" download="" class="btn-pdf">⬇ Descargar CV (PDF)</a>
+    </header>
+
+            <!-- Menú Interactivo -->
+    <nav>
+        <button class="tab-btn active" onclick="openTab(event, 'sobre-mi')">👤 Sobre mí</button>
+        <button class="tab-btn" onclick="openTab(event, 'experiencia')">💼 Experiencia</button>
+        <button class="tab-btn" onclick="openTab(event, 'estudios')">🎓 Estudios</button>
+        <button class="tab-btn" onclick="openTab(event, 'contacto')">📩 Contacto</button>
+    </nav>
+
+    <!-- Contenido -->
+    <div class="content">
+        
+        <!-- Pestaña 1: Sobre mí (Foto e Información) -->
+        <div id="sobre-mi" class="tab-panel active">
+            <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                
+                
+                <img class="profile-pic" src="c:\Users\Admin\Downloads\image_ca0fe291.jpg" alt="Foto de Hugo Losilla Diez" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid #38bdf8;">               
+                
+                <div style="flex: 1; min-width: 240px;">
+                    <h3>Soy Hugo Losilla Diez</h3>
+                    <p style="color: var(--text-muted); margin-top: 0.6rem; line-height: 1.6;">
+                        Soy Hugo Losilla Diez, tengo 18 años y actualmete estoy estudiando un grado superior de desarrolo de aplicaciones multiplataforma en La Salle Santo Ángel, el cuál empeze este año después de acabar el bachillerato tecnológico en el IES Ramón Pignatelli en el cual además de las asignaturas obligatorias del bachirerato realize la asignaturas de física, dibujo técnico y obviamente informática. Se hablar Español e Inglés.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Pestaña 2: Experiencia -->
+        <div id="experiencia" class="tab-panel">
+            <div class="exp-item">
+                <h4>PROYECTO DE DESARROLLO WEB Y BASES DE DATOS</h4>
+                <span>Proyecto Académico | 2025 - 2026</span>
+                <p style="color: var(--text-muted); margin-top: 0.4rem;">Creación de una aplicación web interactiva con HTML, CSS y JavaScript, junto con el diseño y consulta de bases de datos relacionales en SQL.</p>
+            </div>
+            
+        </div>
+
+        <!-- Pestaña 3: Estudios -->
+        <div id="estudios" class="tab-panel">
+            <div class="exp-item">
+                <h4>Grado Superior en Desarrollo de Aplicaciones Multiplataforma</h4>
+                <span>La Salle Santo Ángel | 2026 - 2028</span>
+                <p style="color: var(--text-muted); margin-top: 0.4rem;">En este grado me especialice en programación y bases de datos, además de aprender más sobre la informática y el desarrollo de aplicaciones multiplataforma en otras asignaturas como son entornos de desarrollo, sistemas informáticos, leguaje de marcas y digitalizacíon.</p>
+            </div>
+            <div class="exp-item">
+                <h4>Bachillerato Tecnológico</h4>
+                <span>IES Ramón Pignatelli | 2024 - 2026</span>
+                <p style="color: var(--text-muted); margin-top: 0.4rem;">En el que aparte de las asignaturas propias de bachillerato como son física, historia, dibujo técnico, etc. También elegí la optativa de informática en ambos años y empece a introducirme en programación, ya que ya habia tenido esta asignatura tamben en la ESO y me gustaba.</p>
+            </div>
+        </div>
+
+        <!-- Pestaña 4: Contacto -->
+        <div id="contacto" class="tab-panel">
+            <h3>Aquí esta mi contacto</h3>
+            <p style="color: var(--text-muted); margin: 1rem 0;">Estoy disponible para incorporación inmediata y entrevistas presenciales o remotas.</p>
+            <p>📧 <strong>Email:</strong> hugolosilladiez@lasallesantoangel.es</p>
+            <p>📱 <strong>Teléfono:</strong> +34 691 64 93 55</p>
+            <p>🔗 <strong>LinkedIn:</strong> https://linkedin.com</p>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Cambiar entre pestañas
+    function openTab(evt, tabName) {
+        let panels = document.getElementsByClassName("tab-panel");
+        for (let i = 0; i < panels.length; i++) {
+            panels[i].classList.remove("active");
+        }
+        
+        let buttons = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove("active");
+        }
+        
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+</body>
+</html>
+
